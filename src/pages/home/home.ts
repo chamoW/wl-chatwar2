@@ -3,6 +3,8 @@ import { NavController } from 'ionic-angular';
 import { ConversationPage } from '../conversation/conversation';
 import { LoginPage } from '../login/login';
 import { AboutPage } from '../about/about';
+import { User } from '../../app/interfaces/user';
+import { UserProvider } from '../../providers/user/user.provider';
 
 @Component({
   selector: 'page-home',
@@ -10,12 +12,19 @@ import { AboutPage } from '../about/about';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController) {
+  friends: User[];
+
+  constructor(public navCtrl: NavController, private userProvider: UserProvider) {
+    this.friends = this.userProvider.getFriends();
+
 
   }
 
-  goToConversation() {
-    this.navCtrl.push(ConversationPage);
+
+
+  goToConversation(user: User) {
+    console.log("user: ", user);
+    this.navCtrl.push(ConversationPage, { 'user': user });
 
   }
 
@@ -24,7 +33,7 @@ export class HomePage {
 
   }
 
-  goToAbout(){
+  goToAbout() {
     this.navCtrl.push(AboutPage);
   }
 
