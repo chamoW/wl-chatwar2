@@ -13,16 +13,20 @@ import { ConversationPageModule } from '../pages/conversation/conversation.modul
 import { ProfilePageModule } from '../pages/profile/profile.module';
 import { AboutPageModule } from '../pages/about/about.module';
 import { UserProvider } from '../providers/user/user.provider';
+import { SearchPipe } from '../pipes/search/search';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    ListPage
+    ListPage,
+    SearchPipe
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    FormsModule,
     LoginPageModule,
     ConversationPageModule,
     ProfilePageModule,
