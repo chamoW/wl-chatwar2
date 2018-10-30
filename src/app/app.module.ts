@@ -14,7 +14,26 @@ import { ProfilePageModule } from '../pages/profile/profile.module';
 import { AboutPageModule } from '../pages/about/about.module';
 import { UserProvider } from '../providers/user/user.provider';
 import { SearchPipe } from '../pipes/search/search';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import {AngularFireAuthModule} from 'angularfire2/auth';
+import { AuthenticationProvider } from '../providers/authentication/authentication';
+
+
+
+
+
+// Initialize Firebase
+export const firebaseConfig = {
+  apiKey: "AIzaSyCocgALuj45Tbq1gHslkZgKUak8JOdP9WU",
+  authDomain: "wl-chatwar2.firebaseapp.com",
+  databaseURL: "https://wl-chatwar2.firebaseio.com",
+  projectId: "wl-chatwar2",
+  storageBucket: "wl-chatwar2.appspot.com",
+  messagingSenderId: "110712791119"
+};
 
 @NgModule({
   declarations: [
@@ -27,10 +46,16 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     IonicModule.forRoot(MyApp),
     FormsModule,
+    ReactiveFormsModule,
     LoginPageModule,
     ConversationPageModule,
     ProfilePageModule,
-    AboutPageModule
+    AboutPageModule,
+
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule
+
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -41,8 +66,9 @@ import { FormsModule } from '@angular/forms';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     UserProvider,
+    AuthenticationProvider,
   ]
 })
-export class AppModule {}
+export class AppModule { }
