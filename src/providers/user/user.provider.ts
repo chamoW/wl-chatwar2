@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireStorage } from 'angularfire2/storage';
 
 
 /*
@@ -11,7 +12,8 @@ import { AngularFireDatabase } from 'angularfire2/database';
 @Injectable()
 export class UserProvider {
 
-  constructor(private angularFireDataBase: AngularFireDatabase) {
+  constructor(private angularFireDataBase: AngularFireDatabase,
+    private angularFireStorage: AngularFireStorage) {
 
   }
 
@@ -24,7 +26,7 @@ export class UserProvider {
   }
 
   getUserById(uid) {
-    return this.angularFireDataBase.object('/users/' + uid);
+    return this.angularFireDataBase.object('users/' + uid);
   }
 
 
@@ -34,5 +36,23 @@ export class UserProvider {
 
   editUser(user) {
     return this.angularFireDataBase.object('/users/' + user.uid).set(user);
+  }
+
+
+  /**
+   * Sube imagen en base64
+   * @param name image name
+   * @param image image
+   */
+  uploadPicture(name, image) {
+    return this.angularFireStorage.ref('pictures/' + name).putString(image, 'data_url');
+  }
+
+  /**
+   * Obtiene la url de la imagen
+   * @param name 
+   */
+  getDownloadURL(name) {
+    return this.angularFireStorage.ref('pictures/' + name).getDownloadURL();
   }
 }

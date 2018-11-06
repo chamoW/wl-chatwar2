@@ -18,8 +18,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireStorageModule } from "angularfire2/storage";
 import {AngularFireAuthModule} from 'angularfire2/auth';
 import { AuthenticationProvider } from '../providers/authentication/authentication';
+
+import { Camera } from "@ionic-native/camera";
 
 
 
@@ -54,7 +57,8 @@ export const firebaseConfig = {
 
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    AngularFireStorageModule
 
   ],
   bootstrap: [IonicApp],
@@ -69,6 +73,7 @@ export const firebaseConfig = {
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     UserProvider,
     AuthenticationProvider,
+    Camera
   ]
 })
 export class AppModule { }

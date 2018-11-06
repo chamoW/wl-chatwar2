@@ -31,10 +31,12 @@ export class HomePage {
 
     this.authenticationService.getStatus().subscribe((result) => {
       console.log("estados: ", result);
-      this.userProvider.getUserById(result.uid).valueChanges().subscribe((user: User) => {
-        this.user = user;
-        //this.user.friends = Object.keys(this.user.friends).map(key => this.user.friends[key]);
-      });
+      if (result != null) {
+        this.userProvider.getUserById(result.uid).valueChanges().subscribe((user: User) => {
+          this.user = user;
+          //this.user.friends = Object.keys(this.user.friends).map(key => this.user.friends[key]);
+        });
+      }
     });
 
   }
